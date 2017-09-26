@@ -21,35 +21,46 @@ class test_hashmap(unittest.TestCase):
         self.assertRaises(ValueError,self._dict.sanity_check_key,[2,3,4]) # passed a list to raise exception
         self.assertRaises(ValueError,self._dict.sanity_check_key,('asd','asd')) # passed a tuple to raise exception
 
+    def test_probe(self):
+        num = self._dict.probe(5)
+        self.assertEqual(num,6)
+        num = self._dict.probe(self._dict.size + 3)
+        self.assertEqual(num,0)
+
     def test_set(self):
-        bool_true = self._dict.set('animal','monkey')
-        bool_false = self._dict.set('animal','lion',verbose=False)
-        self.assertEqual(bool_true,True)
-        self.assertEqual(bool_false,False)
+        self.assertEqual(self._dict.set('animal','monkey'),True)
+        self.assertEqual(self._dict.set('animal','lion'),True)
         self.assertRaises(ValueError,self._dict.set,23,'done!')
+        self._dict.reset()
+        for i in range(self._dict.size):
+            self.assertEqual(self._dict.set('animal' + str(i),'monkey' + str(i)),True)
+        self.assertEqual(self._dict.load(),1)
+        self.assertEqual(self._dict.set('one_more_key_to_cause_overflow','monkey_n',False),False)
+
 
     def test_get(self):
-        self._dict.set('animal','monkey')
-        value = self._dict.get('animal')
-        value_none = self._dict.get('bird')
-        self.assertEqual(value,'monkey')
-        self.assertEqual(value_none,None)
+        for i in range(self._dict.size):
+            self._dict.set('animal' + str(i),'monkey' + str(i))
+            self.assertEqual(self._dict.get('animal' + str(i)),'monkey' + str(i))
+        self.assertRaises(KeyError,self._dict.get,'bird')
 
     def test_delete(self):
         self._dict.set('animal','monkey')
         self._dict.delete('animal')
-        value = self._dict.get('animal')
-        self.assertEqual(value,None)
-        self.assertRaises(KeyError,self._dict.delete,'animal')
+        for i in range(self._dict.size):
+            self.assertEqual(self._dict.set('animal' + str(i),'monkey' + str(i)),True)
+        for i in reversed(range(self._dict.size)):
+            self.assertEqual(self._dict.delete('animal' + str(i)),None)
+            self.assertRaises(KeyError,self._dict.delete,'animal' + str(i))
+        self.assertRaises(KeyError,self._dict.get,'animal')
 
     def test_load(self):
-        itr = math.floor(random.random() * self._dict.size)
+        itr = math.floor(random.random() * self._dict.size + 5)
         for i in range(itr):
             random_key = ''.join(random.choices(string.ascii_uppercase + string.digits, k=15))
             self._dict.set(random_key,'monkey' + str(i),verbose=False)
         load_value = self._dict.load()
         self.assertLessEqual(load_value,1)
-
 
 
 if __name__ == '__main__':
