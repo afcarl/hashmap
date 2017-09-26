@@ -81,16 +81,3 @@ class HashMap(object):
 	def load(self):
 		not_none_values = sum(x is not None for x in self.values)
 		return not_none_values / self.size
-
-
-if __name__ == '__main__':
-	my_dict = HashMap(25)
-	my_dict.set('W1',5)
-	my_dict.set('W2',5)
-	my_dict.set('W3',5)
-	my_dict.set('W4',5)
-	my_dict.set('b1',5)
-	my_dict.set('b2',5)
-	my_dict.set('b3',5)
-	my_dict.set('b4',5)
-	print(my_dict.keys)
