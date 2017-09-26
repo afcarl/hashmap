@@ -8,7 +8,7 @@ class test_hashmap(unittest.TestCase):
 
 
     def setUp(self):
-        size = math.floor(random.random() * 100) + 5 # minimum size 5
+        size = math.floor(random.random() * 100) + 10 # minimum size 10 to avoid coflicts with line 26
         self._dict = HashMap(size)
 
     def test_hash_index(self):
