@@ -1,4 +1,3 @@
-
 # TODO
 1. ~~Basic hashmap.~~
 2. ~~collision handling in get, set and delete.~~
