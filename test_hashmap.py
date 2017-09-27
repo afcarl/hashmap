@@ -25,7 +25,7 @@ class test_hashmap(unittest.TestCase):
         num = self._dict.probe(5)
         self.assertEqual(num,6)
         num = self._dict.probe(self._dict.size + 3)
-        self.assertEqual(num,0)
+        self.assertEqual(num,4)
 
     def test_set(self):
         self.assertEqual(self._dict.set('animal','monkey'),True)

@@ -1,9 +1,10 @@
 class HashMap(object):
 	"""docstring for HashMap"""
 
-	def __init__(self, size):
+	def __init__(self, size,probing='linear'):
 		self.size = size
-		self.step_size = 1
+		self.probing = probing
+		self.ctr = 1
 		self.values = [None] * self.size
 		self.keys = [None] * self.size
 
@@ -21,11 +22,13 @@ class HashMap(object):
 			raise ValueError('Key should be of type string')
 
 	def probe(self,old_idx):
-		new_idx = (old_idx + self.step_size)
-		if new_idx < self.size:
-			return new_idx
-		else:
-			return 0
+		if self.probing == 'linear':
+			self.ctr = 1
+			new_idx = (old_idx + self.ctr) % self.size 
+		if self.probing == 'quadratic':
+			new_idx = (old_idx + self.ctr ** 2) % self.size
+			self.ctr += 1
+		return new_idx
 
 	def set(self,key,value,verbose=True):
 		if len([x for x in self.keys if x is not None]) == self.size:
