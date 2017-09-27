@@ -8,7 +8,7 @@ class test_hashmap(unittest.TestCase):
 
 
     def setUp(self):
-        size = math.floor(random.random() * 100) + 10 # minimum size 10 to avoid coflicts with line 26
+        size = math.floor(random.random() * 100) + 15 # minimum size 15 to avoid coflicts with line 26
         self._dict = HashMap(size)
 
     def test_hash_index(self):
@@ -21,16 +21,26 @@ class test_hashmap(unittest.TestCase):
         self.assertRaises(ValueError,self._dict.sanity_check_key,[2,3,4]) # passed a list to raise exception
         self.assertRaises(ValueError,self._dict.sanity_check_key,('asd','asd')) # passed a tuple to raise exception
 
-    def test_probe(self):
+    def test_probe_linear(self):
         num = self._dict.probe(5)
         self.assertEqual(num,6)
         num = self._dict.probe(self._dict.size + 3)
         self.assertEqual(num,4)
 
+    def test_probe_quadratic(self):
+        self._dict.probing = 'quadratic'
+        self.assertEqual(self._dict.probe(5),6)
+        self.assertEqual(self._dict.probe(6),10)
+        self.assertEqual(self._dict.probe(1),10)
+        self._dict.reset()
+        self.assertEqual(self._dict.probe(self._dict.size -1),0)
+        self.assertEqual(self._dict.probe(self._dict.size - 1),3)
+
+
     def test_set(self):
         self.assertEqual(self._dict.set('animal','monkey'),True)
         self.assertEqual(self._dict.set('animal','lion'),True)
-        self.assertRaises(ValueError,self._dict.set,23,'done!')
+        self.assertRaises(ValueError,self._dict.set,23,'twenty_three')
         self._dict.reset()
         for i in range(self._dict.size):
             self.assertEqual(self._dict.set('animal' + str(i),'monkey' + str(i)),True)

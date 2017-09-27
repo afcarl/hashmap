@@ -9,6 +9,7 @@ class HashMap(object):
 		self.keys = [None] * self.size
 
 	def reset(self):
+		self.ctr = 1
 		self.values = [None] * self.size
 		self.keys = [None] * self.size
 
