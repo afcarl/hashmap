@@ -21,12 +21,12 @@ class HashMap(object):
 		otherwise it will get stuck in a for loop.
 
 		Usage:
-		When using smaller hashmaps i.e size between (1,50) strictly use linear probing,
-		else if size is large i.e between (40,memory size) use quadratic probing 
+		When using smaller hashmaps i.e size between (1,100) strictly use linear probing,
+		else if size is large i.e between (100,memory size) use quadratic probing 
 
 	"""
 
-	def __init__(self, size,probing='quadratic',verbose=True):
+	def __init__(self, size,probing='quadratic',verbose=False):
 		"""
 		Initalize a new hashmap
 

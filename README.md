@@ -89,6 +89,12 @@ just import this class into your project by writing.
 		Can be [0,1] if probing is 'linear'
 		Can be [0,1) if probing is 'quadratic'
 
+### How to run tests
+
+`cd hashmap/`
+`python test_hashmap.py` 
+`python usage.py`
+
 
 
 ## TODO
