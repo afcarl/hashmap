@@ -1,5 +1,4 @@
 # HashMap
-This is a challenge assignment given for KPCB fellows engineer programme.
 This works similiar to python's dictionaries, java's hashmaps, php's associative arrays etc.
 It simply maps the keys to a integer value using a hash function and we can store the value associated with it in that index.
 Hashmaps are introduced for quick retrieval and insertion on key,value pairs.
